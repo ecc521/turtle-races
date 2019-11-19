@@ -48,7 +48,7 @@ title.grid(column=0, row=rowNum)
 
 
 rowNum += 1
-lineCountText = Label(window, text="Line Count (Default: 20): ", font=("Arial Bold", 15))
+lineCountText = Label(window, text="Vertical Line Count (Default: 20): ", font=("Arial Bold", 15))
 lineCountText.grid(column=0, row=rowNum)
 	
 lineCountBox = Entry(window,width=10,font=("Arial Bold", 14))
