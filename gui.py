@@ -57,7 +57,7 @@ lineCountBox.grid(column=1, row=rowNum)
 
 
 rowNum += 1
-slowDownText = Label(window, text="Instant Replay Camera Slow Down (Default: 2): ", font=("Arial Bold", 15))
+slowDownText = Label(window, text="Instant Replay Camera Slow Down (Default: 2x): ", font=("Arial Bold", 15))
 slowDownText.grid(column=0, row=rowNum)
 	
 slowDownBox = Entry(window,width=10,font=("Arial Bold", 14))
