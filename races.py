@@ -5,6 +5,7 @@ import random
 from time import sleep
 import colorsys
 import math
+import sys
 
 print("Width: " + str(window_height()))
 print("Height: " + str(window_width()))
@@ -58,12 +59,25 @@ if darkmode:
 	color("white")
 	
 
-def raceTurtles():
-	turtleCount = 8
-	turtleSize = 5
 	
-	turtleCount = 24
-	turtleSize = 2
+turtleCount = 8
+turtleSize = 5
+	
+try:
+	index = sys.argv.index("--turtleCount")
+	turtleCount = int(sys.argv[index+1])
+except:
+	print("Defaulting to " + str(turtleCount) + " turtles. ")
+
+	
+try:
+	index = sys.argv.index("--turtleSize")
+	turtleSize = float(sys.argv[index+1])
+except:
+	print("Defaulting to size " + str(turtleSize) + " turtles. ")
+
+	
+def raceTurtles():
 	
 	turtles = []
 	for counter in range(turtleCount):
@@ -87,7 +101,7 @@ def raceTurtles():
 		turtle = turtles[counter]
 		turtle.penup()
 		turtle.speed(0)
-		turtle.goto(getLeftBound(), getTurtleY(len(turtles), counter + 1))
+		turtle.goto(getLeftBound(), getTurtleY(len(turtles), counter + 0.5))
 		#TODO: Add numbers for each turtle.
 		turtle.pendown()
 		turtle.showturtle()
@@ -141,11 +155,13 @@ def raceTurtles():
 			topTurtles.append(counter)
 
 	#TODO: If two turtles tie on moves, check the total distance they went. If those are equal, have a tie.
+	
+	#Double turtle size, move it forward, and have it spin if it won.
 	for turtleNum in topTurtles:
 		turtle = turtles[turtleNum]
 		turtle.shapesize(turtleSize*2, turtleSize*2)
 		turtle.speed(1)
-		turtle.forward(window_width()/20)
+		turtle.forward(window_width()/18)
 		turtle.right(1080)
 		
 
