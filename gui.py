@@ -79,7 +79,7 @@ darkModeBox.grid(column=0, row=rowNum)
 	
 def clicked():
 	
-	command = "python3 turtles.py "
+	command = "python3 races.py "
 	
 	print(turtleCountBox.get())
 	
