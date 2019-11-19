@@ -41,6 +41,7 @@ darkMode = False
 turtleCount = 8
 turtleSize = 5
 lineCount = 20
+replaySlowDown = 2
 	
 try:
 	index = sys.argv.index("--turtleCount")
@@ -69,6 +70,15 @@ try:
 except:
 	print("Defaulting to " + str(lineCount) + " lines. To configure, pass --lineCount num")
 
+	
+	
+try:
+	index = sys.argv.index("--replaySlowDown")
+	replaySlowDown = int(sys.argv[index+1])
+except:
+	print("Defaulting to instant replay slow down of " + str(replaySlowDown) + "x. To configure, pass --replaySlowDown num")
+	
+	
 	
 def drawTrack():
 	if darkMode:
@@ -181,7 +191,7 @@ def raceTurtles():
 	for turtleNum in topTurtles:
 		turtle = turtles[turtleNum]
 		turtle.shapesize(turtleSize*2, turtleSize*2)
-		turtle.speed(1)
+		turtle.speed(2)
 		turtle.forward(window_width()/18)
 		turtle.right(1080)
 		
@@ -194,6 +204,7 @@ def raceTurtles():
 			turtle.penup()
 			turtle.clear()
 			turtle.goto(getLeftBound(), getTurtleY(len(turtles), turtleNum + 0.75))
+			turtle.pendown()
 			
 		sleep(1)	
 			
@@ -201,7 +212,28 @@ def raceTurtles():
 			turtle = turtles[turtleNum]
 			turtle.shapesize(turtleSize, turtleSize)
 			
-		
+		replayFinished = False
+		moveNumber = 0
+		while replayFinished == False:
+			currentFinished = True
+			
+			for run in range(replaySlowDown):
+				for turtleNum in range(len(turtles)):
+					turtle = turtles[turtleNum]
+					moves = distances[turtleNum]
+					if (moveNumber < len(moves)):
+						currentFinished = False
+						turtle.forward(moves[moveNumber]/replaySlowDown)
+						
+			replayFinished = currentFinished
+			moveNumber += 1
+			
+		for turtleNum in topTurtles:
+			turtle = turtles[turtleNum]
+			turtle.shapesize(turtleSize*2, turtleSize*2)
+			turtle.speed(1) #TODO: Divide 2 by replay slow down, min of 0.5
+			turtle.forward(window_width()/18)
+			turtle.right(1080)		
 			
 	
 	sleep(1)
